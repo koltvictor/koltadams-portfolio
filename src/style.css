@@ -1,0 +1,451 @@
+/* ============================================
+   Reset & Base
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================
+   Fonts
+   ============================================ */
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/Canela-Regular-Web.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/Canela-Medium-Web.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne-buch.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne-kraftig.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   CSS Variables
+   ============================================ */
+
+:root {
+  /* Colors */
+  --bg-primary: #faf9f7;
+  --bg-secondary: #f4f3f1;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-tertiary: #7a7a7a;
+  --accent: #b8977e;
+  --accent-hover: #a38468;
+
+  /* Typography */
+  --text-display: 3.5rem;
+  --text-h1: 2.5rem;
+  --text-h2: 1.75rem;
+  --text-h3: 1.25rem;
+  --text-body: 1.125rem;
+  --text-small: 0.9375rem;
+  --text-tiny: 0.8125rem;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.8;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+
+  --margin-page: clamp(1.5rem, 8vw, 12rem);
+  --max-width-content: 680px;
+  --max-width-wide: 1200px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  :root {
+    --text-display: 2.5rem;
+    --text-h1: 1.875rem;
+    --text-h2: 1.5rem;
+    --text-body: 1rem;
+  }
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+
+.page {
+  background: var(--bg-primary);
+  min-height: 100vh;
+  padding: var(--space-3xl) var(--margin-page);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+header {
+  margin-bottom: var(--space-4xl);
+}
+
+.site-title {
+  font-family: "Söhne", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+/* ============================================
+   Sections
+   ============================================ */
+
+.section {
+  margin-bottom: var(--space-4xl);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   Section 1: Introduction
+   ============================================ */
+
+.section-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
+
+.intro-content {
+  max-width: var(--max-width-content);
+}
+
+.intro-headline {
+  font-family: "Canela", serif;
+  font-size: var(--text-h1);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-xl);
+}
+
+.intro-body {
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+.intro-body p + p {
+  margin-top: var(--space-md);
+}
+
+.portrait-container {
+  display: block;
+}
+
+.portrait {
+  max-width: 24rem;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+  .portrait {
+    max-width: 100%;
+  }
+}
+
+/* ============================================
+   Section 2: The Work - DRAMATIC
+   ============================================ */
+
+.section-work {
+  max-width: none;
+  margin-left: calc(-1 * var(--margin-page));
+  margin-right: calc(-1 * var(--margin-page));
+  padding: var(--space-4xl) var(--margin-page);
+  margin-top: var(--space-4xl);
+  margin-bottom: var(--space-4xl);
+}
+
+.work-header {
+  max-width: var(--max-width-content);
+  margin-bottom: var(--space-xl);
+}
+
+.project-title {
+  font-family: "Canela", serif;
+  font-size: var(--text-h2);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.project-image-container {
+  width: 100%;
+  margin-bottom: var(--space-3xl);
+}
+
+.project-image {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: block;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12);
+}
+
+.project-content {
+  max-width: var(--max-width-content);
+}
+
+.project-description {
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.project-stack {
+  font-size: var(--text-small);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-xl);
+}
+
+/* ============================================
+   Fade-in Animation
+   ============================================ */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   Metrics
+   ============================================ */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2xl);
+  margin: var(--space-3xl) 0;
+  padding: var(--space-2xl) 0;
+  justify-content: flex-start;
+}
+
+.metric {
+  text-align: left;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.metric.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.metric:nth-child(1).is-visible {
+  transition-delay: 0ms;
+}
+
+.metric:nth-child(2).is-visible {
+  transition-delay: 150ms;
+}
+
+.metric:nth-child(3).is-visible {
+  transition-delay: 300ms;
+}
+
+.metric:nth-child(4).is-visible {
+  transition-delay: 450ms;
+}
+
+.metric-value {
+  font-family: "Canela", serif;
+  font-size: var(--text-h1);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.metric-label {
+  font-family: "Söhne", sans-serif;
+  font-size: var(--text-small);
+  font-weight: 400;
+  color: var(--text-tertiary);
+  letter-spacing: var(--tracking-wide);
+  text-transform: lowercase;
+  margin-top: var(--space-xs);
+}
+
+.metric-context {
+  font-family: "Söhne", sans-serif;
+  font-size: var(--text-tiny);
+  color: var(--text-tertiary);
+  margin-top: var(--space-xs);
+}
+
+@media (max-width: 768px) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+/* ============================================
+   Project Link
+   ============================================ */
+
+.project-link {
+  display: inline-block;
+  font-family: "Söhne", sans-serif;
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  margin-bottom: var(--space-lg);
+}
+
+.project-link:hover {
+  color: var(--accent-hover);
+  text-decoration-color: var(--accent-hover);
+}
+
+.work-note {
+  font-size: var(--text-small);
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* ============================================
+   Section 3: Contact
+   ============================================ */
+
+.section-contact {
+  max-width: var(--max-width-content);
+  text-align: left;
+  padding: var(--space-4xl) 0;
+  position: relative;
+}
+
+.section-contact::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin: 0 0 var(--space-3xl) 0;
+}
+
+.contact-intro {
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.contact-email {
+  font-family: "Söhne", sans-serif;
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s ease;
+}
+
+.contact-email:hover {
+  color: var(--accent);
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .metric,
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
