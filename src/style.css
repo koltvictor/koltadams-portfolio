@@ -449,3 +449,39 @@ a:focus-visible {
     transition: none;
   }
 }
+
+/* ============================================
+   Availability Signal
+   ============================================ */
+
+.availability {
+  font-family: "Söhne", sans-serif;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-lg);
+}
+
+/* ============================================
+   Social Links
+   ============================================ */
+
+.social-links {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.social-link {
+  color: var(--text-tertiary);
+  transition: color 0.2s ease;
+}
+
+.social-link:hover {
+  color: var(--accent);
+}
+
+.social-link svg {
+  display: block;
+}
