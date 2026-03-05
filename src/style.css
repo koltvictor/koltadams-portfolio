@@ -14,12 +14,18 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family:
+    "Söhne",
+    -apple-system,
+    BlinkMacSystemFont,
     sans-serif;
   line-height: 1.6;
+  background: var(--bg);
+  color: var(--ink);
 }
 
 img {
@@ -65,363 +71,494 @@ img {
 }
 
 /* ============================================
-   CSS Variables
+   Variables
    ============================================ */
 
 :root {
-  /* Colors */
-  --bg-primary: #faf9f7;
-  --bg-secondary: #f4f3f1;
-  --text-primary: #1a1a1a;
-  --text-secondary: #4a4a4a;
-  --text-tertiary: #7a7a7a;
-  --accent: #b8977e;
-  --accent-hover: #a38468;
+  --bg: #faf9f7;
+  --bg-soft: #f3f0eb;
+  --ink: #181613;
+  --ink-mid: #3c3830;
+  --ink-light: #78726a;
+  --ink-faint: #a09890;
+  --gold: #9e7d52;
+  --gold-hover: #876a42;
+  --rule: #e0d9ce;
 
-  /* Typography */
-  --text-display: 3.5rem;
-  --text-h1: 2.5rem;
-  --text-h2: 1.75rem;
-  --text-h3: 1.25rem;
-  --text-body: 1.125rem;
-  --text-small: 0.9375rem;
-  --text-tiny: 0.8125rem;
+  --serif: "Canela", Georgia, serif;
+  --sans: "Söhne", -apple-system, sans-serif;
 
-  --leading-tight: 1.2;
-  --leading-normal: 1.6;
-  --leading-relaxed: 1.8;
-
-  --tracking-tight: -0.02em;
-  --tracking-normal: 0;
-  --tracking-wide: 0.05em;
-
-  /* Spacing */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
-  --space-2xl: 4rem;
-  --space-3xl: 6rem;
-  --space-4xl: 8rem;
-
-  --margin-page: clamp(1.5rem, 8vw, 12rem);
-  --max-width-content: 680px;
-  --max-width-wide: 1200px;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  :root {
-    --text-display: 2.5rem;
-    --text-h1: 1.875rem;
-    --text-h2: 1.5rem;
-    --text-body: 1rem;
-  }
+  --page-x: clamp(28px, 8vw, 120px);
+  --max-prose: 620px;
+  --max-wide: 1200px;
 }
 
 /* ============================================
-   Layout
+   Fade-up animation
+   ============================================ */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 {
+  transition-delay: 0.12s;
+}
+.delay-2 {
+  transition-delay: 0.24s;
+}
+.delay-3 {
+  transition-delay: 0.36s;
+}
+
+/* ============================================
+   Page wrapper
    ============================================ */
 
 .page {
-  background: var(--bg-primary);
   min-height: 100vh;
-  padding: var(--space-3xl) var(--margin-page);
-  color: var(--text-primary);
 }
 
 /* ============================================
-   Header
+   Header / Nav
    ============================================ */
 
-header {
-  margin-bottom: var(--space-4xl);
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px var(--page-x);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 249, 247, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
 }
 
-.site-title {
-  font-family: "Söhne", sans-serif;
-  font-size: 1rem;
+.site-header.scrolled {
+  border-color: var(--rule);
+}
+
+.site-logo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.nav-cta {
+  font-family: var(--sans);
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-primary);
+  color: var(--ink-light);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.nav-cta:hover {
+  color: var(--gold);
+  border-color: var(--gold);
 }
 
 /* ============================================
-   Sections
+   Sections — shared
    ============================================ */
 
 .section {
-  margin-bottom: var(--space-4xl);
+  padding: clamp(72px, 10vw, 140px) var(--page-x);
 }
 
-.section:last-child {
-  margin-bottom: 0;
+.section-divider {
+  height: 1px;
+  background: var(--rule);
+  margin: 0 var(--page-x);
 }
 
 /* ============================================
-   Section 1: Introduction
+   Hero
    ============================================ */
 
-.section-intro {
+.section-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 60px;
+  align-items: center;
+  padding-top: clamp(80px, 12vw, 160px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+  max-width: calc(var(--max-wide) + var(--page-x) * 2);
+}
+
+.hero-text {
+  max-width: 580px;
+}
+
+.hero-label {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.hero-headline {
+  font-family: var(--serif);
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+
+.hero-sub {
+  font-family: var(--sans);
+  font-size: clamp(16px, 1.4vw, 19px);
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--ink-mid);
+  max-width: 480px;
+  margin-bottom: 48px;
+}
+
+.hero-actions {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-3xl);
+  gap: 20px;
+  align-items: center;
 }
 
-.intro-content {
-  max-width: var(--max-width-content);
+.hero-portrait {
+  width: clamp(220px, 22vw, 340px);
+  flex-shrink: 0;
 }
 
-.intro-headline {
-  font-family: "Canela", serif;
-  font-size: var(--text-h1);
-  font-weight: 400;
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
-  margin-bottom: var(--space-xl);
-}
-
-.intro-body {
-  font-size: var(--text-body);
-  line-height: var(--leading-relaxed);
-  color: var(--text-secondary);
-}
-
-.intro-body p + p {
-  margin-top: var(--space-md);
-}
-
-.portrait-container {
-  display: block;
-}
-
-.portrait {
-  max-width: 24rem;
+.hero-portrait img {
   width: 100%;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-}
-
-@media (max-width: 768px) {
-  .portrait {
-    max-width: 100%;
-  }
+  height: auto;
+  display: block;
+  filter: grayscale(100%);
 }
 
 /* ============================================
-   Section 2: The Work - DRAMATIC
+   Buttons
    ============================================ */
 
-.section-work {
-  max-width: none;
-  margin-left: calc(-1 * var(--margin-page));
-  margin-right: calc(-1 * var(--margin-page));
-  padding: var(--space-4xl) var(--margin-page);
-  margin-top: var(--space-4xl);
-  margin-bottom: var(--space-4xl);
+.btn-primary {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--ink);
+  text-decoration: none;
+  padding: 14px 32px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
 
-.work-header {
-  max-width: var(--max-width-content);
-  margin-bottom: var(--space-xl);
+.btn-primary:hover {
+  background: var(--ink-mid);
+  transform: translateY(-1px);
 }
 
-.project-title {
-  font-family: "Canela", serif;
-  font-size: var(--text-h2);
+.btn-secondary {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 3px;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.btn-secondary:hover {
+  color: var(--gold-hover);
+  border-color: var(--gold-hover);
+}
+
+/* ============================================
+   Approach
+   ============================================ */
+
+.section-approach {
+  background: var(--bg-soft);
+  padding-top: clamp(64px, 8vw, 100px);
+  padding-bottom: clamp(64px, 8vw, 100px);
+}
+
+.approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(32px, 4vw, 72px);
+  max-width: var(--max-wide);
+}
+
+.approach-item {
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+}
+
+.approach-num {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.approach-item h3 {
+  font-family: var(--serif);
+  font-size: 22px;
   font-weight: 400;
-  line-height: var(--leading-tight);
-  color: var(--text-primary);
+  color: var(--ink);
+  margin-bottom: 14px;
+  line-height: 1.3;
 }
 
-.project-image-container {
-  width: 100%;
-  margin-bottom: var(--space-3xl);
+.approach-item p {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--ink-light);
 }
 
-.project-image {
+/* ============================================
+   Case Study / Work
+   ============================================ */
+
+.work-intro {
+  max-width: var(--max-prose);
+  margin-bottom: 60px;
+}
+
+.work-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.work-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.work-description {
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--ink-mid);
+  margin-bottom: 16px;
+}
+
+.work-stack {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+/* Embed */
+.work-embed {
+  margin-bottom: 60px;
+  padding: 0 var(--page-x);
+}
+
+.embed-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+
+.embed-frame {
   width: 100%;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.embed-image {
+  width: 100%;
+  height: auto;
   display: block;
-  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12);
 }
 
-.project-content {
-  max-width: var(--max-width-content);
-}
-
-.project-description {
-  font-size: var(--text-body);
-  line-height: var(--leading-relaxed);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-md);
-}
-
-.project-stack {
-  font-size: var(--text-small);
-  color: var(--text-tertiary);
-  margin-bottom: var(--space-xl);
-}
-
-/* ============================================
-   Fade-in Animation
-   ============================================ */
-
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================
-   Metrics
-   ============================================ */
-
+/* Metrics */
 .metrics {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-2xl);
-  margin: var(--space-3xl) 0;
-  padding: var(--space-2xl) 0;
-  justify-content: flex-start;
-}
-
-.metric {
-  text-align: left;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.metric.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.metric:nth-child(1).is-visible {
-  transition-delay: 0ms;
-}
-
-.metric:nth-child(2).is-visible {
-  transition-delay: 150ms;
-}
-
-.metric:nth-child(3).is-visible {
-  transition-delay: 300ms;
-}
-
-.metric:nth-child(4).is-visible {
-  transition-delay: 450ms;
+  gap: clamp(24px, 3vw, 56px);
+  margin-bottom: 56px;
+  padding-top: 56px;
+  border-top: 1px solid var(--rule);
+  max-width: var(--max-wide);
 }
 
 .metric-value {
-  font-family: "Canela", serif;
-  font-size: var(--text-h1);
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 52px);
   font-weight: 400;
-  line-height: var(--leading-tight);
-  color: var(--text-primary);
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.metric-unit {
+  font-size: 0.55em;
+  opacity: 0.7;
+  vertical-align: middle;
 }
 
 .metric-label {
-  font-family: "Söhne", sans-serif;
-  font-size: var(--text-small);
-  font-weight: 400;
-  color: var(--text-tertiary);
-  letter-spacing: var(--tracking-wide);
-  text-transform: lowercase;
-  margin-top: var(--space-xs);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-mid);
+  margin-bottom: 6px;
 }
 
 .metric-context {
-  font-family: "Söhne", sans-serif;
-  font-size: var(--text-tiny);
-  color: var(--text-tertiary);
-  margin-top: var(--space-xs);
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-faint);
+  line-height: 1.5;
 }
 
-@media (max-width: 768px) {
-  .metrics {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-lg);
-  }
+.work-footer {
+  padding-top: 8px;
 }
 
 /* ============================================
-   Project Link
-   ============================================ */
-
-.project-link {
-  display: inline-block;
-  font-family: "Söhne", sans-serif;
-  font-size: var(--text-body);
-  font-weight: 500;
-  color: var(--accent);
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
-  margin-bottom: var(--space-lg);
-}
-
-.project-link:hover {
-  color: var(--accent-hover);
-  text-decoration-color: var(--accent-hover);
-}
-
-.work-note {
-  font-size: var(--text-small);
-  color: var(--text-tertiary);
-  font-style: italic;
-}
-
-/* ============================================
-   Section 3: Contact
+   Contact
    ============================================ */
 
 .section-contact {
-  max-width: var(--max-width-content);
-  text-align: left;
-  padding: var(--space-4xl) 0;
-  position: relative;
+  background: var(--ink);
+  padding-top: clamp(80px, 12vw, 140px);
+  padding-bottom: clamp(80px, 12vw, 140px);
 }
 
-.section-contact::before {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: var(--accent);
-  margin: 0 0 var(--space-3xl) 0;
+.contact-inner {
+  max-width: 640px;
 }
 
-.contact-intro {
-  font-size: var(--text-body);
-  line-height: var(--leading-relaxed);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-md);
+.contact-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+}
+
+.contact-headline {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #f5f1ea;
+  margin-bottom: 0;
+}
+
+.contact-sub {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--gold);
+  margin-bottom: 56px;
 }
 
 .contact-email {
-  font-family: "Söhne", sans-serif;
-  font-size: var(--text-body);
-  font-weight: 500;
-  color: var(--text-primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-  transition: color 0.2s ease;
+  display: block;
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 400;
+  color: #f5f1ea;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 4px;
+  display: inline-block;
+  margin-bottom: 48px;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
 
 .contact-email:hover {
-  color: var(--accent);
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.social-links {
+  display: flex;
+  gap: 24px;
+}
+
+.social-link {
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.social-link:hover {
+  color: var(--gold);
+}
+
+.social-link svg {
+  display: block;
 }
 
 /* ============================================
@@ -429,59 +566,59 @@ header {
    ============================================ */
 
 a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--gold);
   outline-offset: 4px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 900px) {
+  .section-hero {
+    grid-template-columns: 1fr;
+    gap: 48px;
   }
 
-  .metric,
-  .fade-in {
+  .hero-portrait {
+    width: clamp(160px, 40vw, 260px);
+    order: -1;
+  }
+
+  .approach-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header {
+    padding: 24px 24px;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ============================================
+   Reduced motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
     opacity: 1;
     transform: none;
     transition: none;
   }
-}
-
-/* ============================================
-   Availability Signal
-   ============================================ */
-
-.availability {
-  font-family: "Söhne", sans-serif;
-  font-size: var(--text-small);
-  font-weight: 500;
-  color: var(--accent);
-  letter-spacing: var(--tracking-wide);
-  margin-bottom: var(--space-lg);
-}
-
-/* ============================================
-   Social Links
-   ============================================ */
-
-.social-links {
-  display: flex;
-  gap: var(--space-md);
-  margin-top: var(--space-xl);
-}
-
-.social-link {
-  color: var(--text-tertiary);
-  transition: color 0.2s ease;
-}
-
-.social-link:hover {
-  color: var(--accent);
-}
-
-.social-link svg {
-  display: block;
 }
