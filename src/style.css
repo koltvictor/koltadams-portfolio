@@ -389,6 +389,17 @@ img {
   margin-bottom: 16px;
 }
 
+.work-ai {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--gold);
+}
+
 .work-stack {
   font-family: var(--sans);
   font-size: 13px;
