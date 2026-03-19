@@ -1,6 +1,6 @@
 # koltadams.com
 
-Personal portfolio and consulting site for [Kolt Adams](https://koltadams.com) — Principal Software Consultant.
+Personal portfolio and consulting site for [Kolt Adams](https://koltadams.com) — Fractional CTO & Principal Software Consultant.
 
 **Live site:** [koltadams.com](https://koltadams.com)
 
