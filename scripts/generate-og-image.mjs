@@ -26,7 +26,7 @@ const html = `<!DOCTYPE html>
 </head>
 <body>
   <div class="content">
-    <span class="eyebrow">Principal Software Consultant</span>
+    <span class="eyebrow">Fractional CTO & Product Engineer</span>
     <h1 class="name">Kolt Adams</h1>
     <p class="title">I build AI-native products end-to-end — architecture, design, and engineering.</p>
     <span class="url">koltadams.com</span>
