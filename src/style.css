@@ -543,3 +543,9 @@ a:focus-visible {
 .log-foot {
   margin-top: 20px;
 }
+
+/* ── mobile hero fix (must stay last) ────────── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-h1 { font-size: clamp(42px, 12vw, 64px); }
+}
