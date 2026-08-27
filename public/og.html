@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Canela;src:url(fonts/Canela-Regular-Web.woff2) format("woff2")}
+@font-face{font-family:"Geist Mono";src:url(fonts/GeistMono-Regular.woff2) format("woff2")}
+html,body{margin:0;width:1200px;height:630px;background:#111210;overflow:hidden;position:relative}
+.photo{position:absolute;right:-40px;top:-30px;width:640px;height:720px;object-fit:cover;object-position:45% 12%;
+  filter:grayscale(1) contrast(1.05) brightness(1.02);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 160px);mask-image:linear-gradient(to right,transparent 0,#000 160px)}
+.name{position:absolute;left:96px;top:82px;font:400 120px/0.98 Canela;letter-spacing:-.02em;color:#f4f4f1}
+.role{position:absolute;left:96px;top:352px;font:400 20px "Geist Mono",ui-monospace,monospace;letter-spacing:.05em;text-transform:uppercase;color:#a8a9a2}
+.url{position:absolute;left:96px;bottom:76px;font:400 20px "Geist Mono",ui-monospace,monospace;color:#f4f4f1}
+</style>
+<img class="photo" src="images/portrait.webp">
+<div class="name">Kolt<br>Adams</div>
+<div class="role">Fractional CTO &amp; Product Engineer</div>
+<div class="url">koltadams.com</div>
