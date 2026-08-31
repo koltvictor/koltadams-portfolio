@@ -47,13 +47,13 @@
       <p>The pipeline is AI-drafted, clinician-gated, and schema-enforced. The first two are process. The third is the decision.</p>
       <p>Every interaction record carries a severity and an evidence grade. A high-severity warning backed only by preliminary evidence is exactly the kind of record that reads as authoritative and isn't. The obvious answer is a review step: a human checks the grade before publishing. The problem with the obvious answer is that a review step is a habit, and habits erode. Someone is tired, the queue is long, the record looks fine.</p>
       <p>So the rule isn't in the review step. It's a database-level constraint. A record with that combination of severity and evidence cannot be inserted as published. Not "shouldn't"; the database refuses the write. The safety invariant lives in the schema, where it doesn't depend on anyone's attention on a given Tuesday.</p>
+      <p>Every record still gets read by a licensed physician, because the constraint catches a category of error, not all errors. In the first pass, 7 of 107 records were retracted. The useful part wasn't the seven; it was that most of them failed the same way, so the fix went into the drafting stage rather than into seven individual corrections.</p>
 
       <h2>What it cost</h2>
-      <p>Every record still gets read by a licensed physician, because the constraint catches a category of error, not all errors. In the first pass, 7 of 107 records were retracted. The useful part wasn't the seven; it was that most of them failed the same way, so the fix went into the drafting stage rather than into seven individual corrections. A pharmacist completeness review is a hard gate before public launch, not a nice-to-have.</p>
       <p>The cost is speed. The constraint had to exist before the first record did, the review console had to exist before the first reviewer did, and the whole thing shipped later than a version that trusted the data would have. That was the right trade. There's nothing to unwind.</p>
 
       <h2>Proof</h2>
-      <p>100 published interaction records across 41 substances, each human-reviewed. Nightly biometric ingestion from Oura and Apple HealthKit, with per-source retention that honors each provider's terms. In private beta.</p>
+      <p>100 published interaction records across 41 substances, each human-reviewed. In private beta.</p>
       <p>If you're building anything where a wrong record does harm, the question worth asking early is: which rules are habits, and which are constraints? Habits are cheaper to write. Constraints are the ones still holding in month six.</p>
 
       <footer class="post-foot">
